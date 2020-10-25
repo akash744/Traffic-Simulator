@@ -48,3 +48,24 @@ Car* Platoon::get_head()
 	return head;
 }
 
+void Platoon::prepend(Car *c)
+{
+  c->set_next(head);
+  head=c;
+}
+
+void Platoon::append(Car *c)
+{
+  if(head == NULL){
+    head=c;
+    return;
+  }
+  else{
+    Car *t;
+    t=head;
+    while(t->get_next() != 0){
+      t = t->get_next();
+    }
+    t->set_next(c);
+  }
+}

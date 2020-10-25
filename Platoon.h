@@ -18,6 +18,8 @@ class Platoon
         Platoon(string init);
         Car* get_tail();
         Car* get_head();
+        void prepend(Car* c);
+        void append(Car* c);
 
         /* 
         you may create methods below
