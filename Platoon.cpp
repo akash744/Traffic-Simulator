@@ -69,3 +69,12 @@ void Platoon::append(Car *c)
     t->set_next(c);
   }
 }
+
+void Platoon::remove(Car *c)
+{
+  if(c->get_position() == 0){
+    c->get_next()->set_prev(NULL);
+    head=c->get_next();
+  }
+
+}

@@ -20,6 +20,7 @@ class Platoon
         Car* get_head();
         void prepend(Car* c);
         void append(Car* c);
+        void remove(Car* c); 
 
         /* 
         you may create methods below
