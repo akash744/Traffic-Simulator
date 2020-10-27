@@ -57,6 +57,28 @@ void TrafficModel::move_car_forward(Car* c){
   }
 }
 
+//Helper Function: Check free space returns 1 if true, 0 if false
+int TrafficModel::check_free_space(Car* c, int current_position, int lane){
+  int traversal_position = 0;
+  Car* temp_head_node = platoons[lane].get_head();
+  while(temp_head_node != NULL){
+    traversal_position = temp_head_node->get_position();
+    if(traversal_position == current_position){
+      return 1;
+    }
+    temp_head_node = temp_head_node->get_next();
+  }
+  return 0;
+}
+
+//Helper Function: Change to Left Lane
+void TrafficModel::change_lane_left(Car* c, int current_lane){
+  if(current_lane > 0){
+
+
+  }
+}
+
 
 /*
  * Initialization based on the input information
