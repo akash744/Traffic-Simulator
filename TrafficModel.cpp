@@ -75,6 +75,16 @@ int TrafficModel::check_free_space(Car* c, int current_position, int lane){
 void TrafficModel::change_lane_left(Car* c, int current_lane){
   if(current_lane > 0){
 
+    int current_position = c->get_position();
+    int lane_change_allowed = this->check_free_space(c, current_position,current_lane - 1);
+
+    if(lane_change_allowed == 1){
+      int temp = 0;
+    }
+    else{
+      this->move_car_forward(c);
+      
+    }
 
   }
 }
