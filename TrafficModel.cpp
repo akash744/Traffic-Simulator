@@ -64,11 +64,11 @@ int TrafficModel::check_free_space(Car* c, int current_position, int lane){
   while(temp_head_node != NULL){
     traversal_position = temp_head_node->get_position();
     if(traversal_position == current_position){
-      return 1;
+      return 0;
     }
     temp_head_node = temp_head_node->get_next();
   }
-  return 0;
+  return 1;
 }
 
 //Helper Function: Change to Left Lane
@@ -79,13 +79,16 @@ void TrafficModel::change_lane_left(Car* c, int current_lane){
     int lane_change_allowed = this->check_free_space(c, current_position,current_lane - 1);
 
     if(lane_change_allowed == 1){
-      int temp = 0;
+      platoons[current_lane].remove(c);
+      platoons[current_lane - 1].insert(c);
     }
     else{
       this->move_car_forward(c);
-      
     }
 
+  }
+  else{
+    this->move_car_forward(c);
   }
 }
 
