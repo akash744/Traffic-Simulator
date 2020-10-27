@@ -29,6 +29,7 @@ class TrafficModel
 		void set_commands(vector<string> commands);
 		void initialize(vector<string> info);
 		void update();
+    void move_car_forward(Car* c);
 		vector<string> get_system_state();
 		vector<int> parse_car_data(string& car);
 		vector<vector<vector<int>>> get_car_state();

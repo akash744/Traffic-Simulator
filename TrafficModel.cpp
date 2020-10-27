@@ -39,6 +39,22 @@ int TrafficModel::get_lane_change_command(int id)
 void TrafficModel::update()
 {
 	// TODO: complete this function
+  int lane_count = platoons.size();
+  for(unsigned int i = 0; i < lane_count; i++){
+    Car* last_car = platoons[i].get_tail();
+    this->move_car_forward(last_car);
+
+  }
+}
+
+// Helper Function: Moves Car Forward
+void TrafficModel::move_car_forward(Car* c){
+  Car* space_in_front = c->get_next();
+  if(space_in_front == NULL){
+    int curr_position = c->get_position();
+    curr_position += 1;
+    c->set_position(curr_position);
+  }
 }
 
 
