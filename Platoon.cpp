@@ -72,9 +72,22 @@ void Platoon::append(Car *c)
 
 void Platoon::remove(Car *c)
 {
-  if(c->get_position() == 0){
+  Car* head_reference = this->get_head();
+  Car* tail_reference = this->get_tail();
+
+  if(head_reference == c){
     c->get_next()->set_prev(NULL);
-    head=c->get_next();
+    head = c->get_next();
   }
+  else if((c->get_next() != NULL) && (c->get_prev() != NULL)){
+    (c->get_prev())->set_next(c->get_next());
+    (c->get_next())->set_prev(c->get_prev());
+  }
+  else if(tail_reference == c){
+    (c->get_prev())->set_next(NULL);
+		tail = c->get_prev();
+		c->set_prev(NULL);
+  }
+  
 
 }
