@@ -21,6 +21,7 @@ class Platoon
         void prepend(Car* c);
         void append(Car* c);
         void remove(Car* c); 
+        void insert(Car* c);
 
         /* 
         you may create methods below
