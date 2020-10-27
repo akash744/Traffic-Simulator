@@ -92,6 +92,27 @@ void TrafficModel::change_lane_left(Car* c, int current_lane){
   }
 }
 
+//Helper Function: Change to Right Lane
+void TrafficModel::change_lane_right(Car* c, int current_lane){
+  if(current_lane < platoons.size() - 1){
+
+    int current_position = c->get_position();
+    int lane_change_allowed = this->check_free_space(c, current_position,current_lane + 1);
+
+    if(lane_change_allowed == 1){
+      platoons[current_lane].remove(c);
+      platoons[current_lane + 1].insert(c);
+    }
+    else{
+      this->move_car_forward(c);
+    }
+
+  }
+  else{
+    this->move_car_forward(c);
+  }
+}
+
 
 /*
  * Initialization based on the input information
