@@ -97,7 +97,7 @@ void Platoon::remove(Car *c)
 
 void Platoon::insert(Car *c)
 {
-
+  /*
   int current_position = c->get_position();
 
   if(head != NULL){
@@ -122,8 +122,6 @@ void Platoon::insert(Car *c)
         temporary_head = temporary_head->get_next();
       }
     }
-
-
   }
 
   else{
@@ -132,6 +130,21 @@ void Platoon::insert(Car *c)
     tail = c;
 
   }
-  
-
+  */
+  if(c->get_position() < head->get_position()){
+    prepend(c);
+  }
+  else if(c->get_position() > tail->get_position()){
+    append(c);
+  }
+  else if(head != NULL){
+    Car* traversal_position = head;
+    while(traversal_position->get_position() != c->get_position()){
+      traversal_position = traversal_position->get_next();
+    }
+    traversal_position->get_prev()->set_next(c);
+    traversal_position->get_next()->set_prev(c);
+    c->set_prev(traversal_position);
+    c->set_next(traversal_position->get_next());
+  }
 }
