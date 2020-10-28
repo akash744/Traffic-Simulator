@@ -1,4 +1,5 @@
 #include "TrafficModel.h"
+#include<iostream>
 
 TrafficModel::TrafficModel() { }
 TrafficModel::~TrafficModel(){ }
@@ -108,6 +109,9 @@ bool TrafficModel::check_free_space(Car* c, int current_position, int current_la
 
 //Helper Function: Change to Left Lane
 void TrafficModel::change_lane_left(Car* c, int current_lane){
+
+  Car* copy_car = c;
+
   if(current_lane != 0){
 
     int current_position = c->get_position();
@@ -116,7 +120,7 @@ void TrafficModel::change_lane_left(Car* c, int current_lane){
 
     if(lane_change_allowed){
       platoons[current_lane].remove(c);
-      platoons[new_lane].insert(c);
+      platoons[new_lane].insert(copy_car); 
     }
     else{
       this->move_car_forward(c);
@@ -130,6 +134,9 @@ void TrafficModel::change_lane_left(Car* c, int current_lane){
 
 //Helper Function: Change to Right Lane
 void TrafficModel::change_lane_right(Car* c, int current_lane){
+
+  Car* copy_car = c;
+
   if(current_lane != platoons.size() - 1){
 
     int current_position = c->get_position();
@@ -138,7 +145,7 @@ void TrafficModel::change_lane_right(Car* c, int current_lane){
 
     if(lane_change_allowed){
       platoons[current_lane].remove(c);
-      platoons[current_lane + 1].insert(c);
+      platoons[current_lane + 1].insert(copy_car);
     }
     else{
       this->move_car_forward(c);

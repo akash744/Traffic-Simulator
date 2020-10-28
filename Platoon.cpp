@@ -77,13 +77,13 @@ void Platoon::append(Car *c)
 void Platoon::remove_first(Car *c)
 {
   if(head->get_next() == NULL){
-    delete head;
+    
     head = NULL;
     tail = NULL;
   }
   else{
     head = head->get_next();
-    delete head->get_prev();
+    
     head->set_prev(NULL);
   }
 }
@@ -91,13 +91,13 @@ void Platoon::remove_first(Car *c)
 void Platoon::remove_last(Car *c)
 {
   if(head->get_next() == NULL){
-    delete head;
+    
     head = NULL;
     tail = NULL;
   }
   else if(head != NULL){
     tail = tail->get_prev();
-    delete tail->get_next();
+    
     tail->set_next(NULL);
   }
 }
@@ -135,7 +135,7 @@ void Platoon::remove(Car *c)
     }
     traversal_position->get_prev()->set_next(traversal_position->get_next());
     traversal_position->get_next()->set_prev(traversal_position->get_prev());
-    delete traversal_position;
+    
   }
 }
 
