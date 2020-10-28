@@ -63,18 +63,15 @@ void Platoon::prepend(Car *c)
 
 void Platoon::append(Car *c)
 {
-  Car* temporary_head = this->get_head();
-  c->set_next(NULL);
-  if (head == NULL) { 
-        c->set_prev(NULL); 
-        head = c; 
-        return; 
-  } 
-  while(temporary_head->get_next() != NULL){
-    temporary_head = temporary_head->get_next(); 
+  if(head == NULL){
+    head = c;
+    tail = c;
   }
-  temporary_head->set_next(c);
-  c->set_prev(temporary_head);
+  else{
+    tail->set_next(c);
+    c->set_prev(tail);
+    tail = c;
+  }
 }
 
 void Platoon::remove(Car *c)
