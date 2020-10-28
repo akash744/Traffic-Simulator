@@ -24,6 +24,8 @@ class Platoon
         void append(Car* c);
         void remove(Car* c); 
         void insert(Car* c);
+        void remove_first(Car* c);
+        void remove_last(Car* c);
         //My Helper Function END
 
         /* 

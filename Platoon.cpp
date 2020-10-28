@@ -67,15 +67,44 @@ void Platoon::append(Car *c)
     head = c;
     tail = c;
   }
-  else{
+  else if(head != NULL){
     tail->set_next(c);
     c->set_prev(tail);
     tail = c;
   }
 }
 
+void Platoon::remove_first(Car *c)
+{
+  if(head->get_next() == NULL){
+    delete head;
+    head = NULL;
+    tail = NULL;
+  }
+  else{
+    head = head->get_next();
+    delete head->get_prev();
+    head->set_prev(NULL);
+  }
+}
+
+void Platoon::remove_last(Car *c)
+{
+  if(head->get_next() == NULL){
+    delete head;
+    head = NULL;
+    tail = NULL;
+  }
+  else if(head != NULL){
+    tail = tail->get_prev();
+    delete tail->get_next();
+    tail->set_next(NULL);
+  }
+}
+
 void Platoon::remove(Car *c)
 {
+  /*
   Car* head_reference = this->get_head();
   Car* tail_reference = this->get_tail();
 
@@ -92,7 +121,22 @@ void Platoon::remove(Car *c)
 		tail = c->get_prev();
 		c->set_prev(NULL);
   }
-  
+  */
+  if(c->get_prev() == NULL){
+    remove_first(c);
+  }
+  else if(c->get_next() == NULL){
+    remove_last(c);
+  }
+  else if(head != NULL){
+    Car* traversal_position = head;
+    while(traversal_position->get_position() != c->get_position()){
+      traversal_position = traversal_position->get_next();
+    }
+    traversal_position->get_prev()->set_next(traversal_position->get_next());
+    traversal_position->get_next()->set_prev(traversal_position->get_prev());
+    delete traversal_position;
+  }
 }
 
 void Platoon::insert(Car *c)
