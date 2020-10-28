@@ -32,7 +32,7 @@ class TrafficModel
 
     //MY HELPER FUNCTIONS
     void move_car_forward(Car* c);
-    bool check_free_space(Car* c, int current_position, int lane);
+    bool check_free_space(Car* c, int current_position, int current_lane, int new_lane);
     void change_lane_left(Car* c, int current_lane);
     void change_lane_right(Car* c, int current_lane);
     //MY HELPER FUNCTIONS END
