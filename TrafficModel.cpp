@@ -60,23 +60,31 @@ void TrafficModel::update()
 
 // Helper Function: Moves Car Forward
 void TrafficModel::move_car_forward(Car* c){
+
   Car* space_in_front = c->get_next();
+
   if(space_in_front == NULL){
+
     int curr_position = c->get_position();
     curr_position += 1;
     c->set_position(curr_position);
+
   }
 }
 
 //Helper Function: Check free space returns 1 if true, 0 if false
 int TrafficModel::check_free_space(Car* c, int current_position, int lane){
+
   int traversal_position = 0;
   Car* temp_head_node = platoons[lane].get_head();
+
   while(temp_head_node != NULL){
+
     traversal_position = temp_head_node->get_position();
     if(traversal_position == current_position){
       return 0;
     }
+    
     temp_head_node = temp_head_node->get_next();
   }
   return 1;

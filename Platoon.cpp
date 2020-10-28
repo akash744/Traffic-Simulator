@@ -50,10 +50,15 @@ Car* Platoon::get_head()
 
 void Platoon::prepend(Car *c)
 {
-  c->set_next(head);
-	c->set_prev(NULL);
-	head->set_prev(c);
-	head = c;
+  if(head == NULL){
+    head = c;
+    tail = c;
+  }
+  else{
+    head->set_prev(c);
+    c->set_next(head);
+    head = c;
+  }
 }
 
 void Platoon::append(Car *c)

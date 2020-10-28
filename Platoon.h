@@ -18,10 +18,13 @@ class Platoon
         Platoon(string init);
         Car* get_tail();
         Car* get_head();
+
+        // My Helper Functions
         void prepend(Car* c);
         void append(Car* c);
         void remove(Car* c); 
         void insert(Car* c);
+        //My Helper Function END
 
         /* 
         you may create methods below
