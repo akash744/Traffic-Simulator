@@ -51,24 +51,25 @@ Car* Platoon::get_head()
 void Platoon::prepend(Car *c)
 {
   c->set_next(head);
-  head = c;
+	c->set_prev(NULL);
+	head->set_prev(c);
+	head = c;
 }
 
 void Platoon::append(Car *c)
 {
-  if(head == NULL){
-    head = c;
-    return;
+  Car* temporary_head = this->get_head();
+  c->set_next(NULL);
+  if (head == NULL) { 
+        c->set_prev(NULL); 
+        head = c; 
+        return; 
+  } 
+  while(temporary_head->get_next() != NULL){
+    temporary_head = temporary_head->get_next(); 
   }
-  else{
-    Car* temporary_head = this->get_head();
-  
-    while(temporary_head->get_next() != NULL){
-      temporary_head = temporary_head->get_next();
-    }
-    temporary_head->set_next(c);
-
-  }
+  temporary_head->set_next(c);
+  c->set_prev(temporary_head);
 }
 
 void Platoon::remove(Car *c)

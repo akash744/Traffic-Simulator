@@ -43,6 +43,17 @@ void TrafficModel::update()
   for(unsigned int i = 0; i < lane_count; i++){
     Car* last_car = platoons[i].get_tail();
     this->move_car_forward(last_car);
+    while(last_car->get_next() != NULL){
+      if(this->get_lane_change_command(last_car->get_id() == 0)){
+        this->move_car_forward(last_car);
+      }
+      else if(this->get_lane_change_command(last_car->get_id() == 1)){
+        this->change_lane_left(last_car, i);
+      }
+      else if(this->get_lane_change_command(last_car->get_id() == 2)){
+        this->change_lane_right(last_car, i);
+      }
+    }
 
   }
 }
