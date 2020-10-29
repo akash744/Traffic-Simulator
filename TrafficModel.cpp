@@ -41,12 +41,17 @@ void TrafficModel::update()
 {
 	// TODO: complete this function
   int lane_count = platoons.size();
+
   for(unsigned int i = 0; i < lane_count; i++){
 
     Car* cars = platoons[i].get_tail();
+    Car* copy_car = NULL;
 
+    if (copy_car != NULL)
+		{
+			copy_car = cars->get_prev();
+		}
     while(cars != NULL){
-
       if(this->get_lane_change_command(cars->get_id()) == 0){
         this->move_car_forward(cars);
       }
@@ -56,7 +61,11 @@ void TrafficModel::update()
       else if(this->get_lane_change_command(cars->get_id()) == 2){
         this->change_lane_right(cars, i);
       }
-      cars = cars->get_prev();
+      cars = copy_car;
+			if (copy_car != NULL)
+			{
+				copy_car = copy_car->get_prev(); 
+			}
     }
   }
 }
@@ -156,20 +165,6 @@ void TrafficModel::change_lane_right(Car* c, int current_lane){
     this->move_car_forward(c);
   }
 }
-
-//Helper Function: To check if car in Errors Vector returns 1 if true, 0 if false
-int TrafficModel::errors(Car* c, vector<Car*> errors_vector)
-{
-	for (int i = 0; i < errors_vector.size(); i++)
-	{
-		if (c == errors_vector[i])
-		{
-			return 1;
-		}
-	}
-	return 0;
-}
-
 
 /*
  * Initialization based on the input information
