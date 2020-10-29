@@ -175,20 +175,29 @@ void Platoon::insert(Car *c)
 
   }
   */
-  if(c->get_position() < head->get_position()){
-    prepend(c);
-  }
-  else if(c->get_position() > tail->get_position()){
-    append(c);
-  }
-  else if(head != NULL){
-    Car* traversal_position = head;
-    while(traversal_position->get_position() != c->get_position()){
-      traversal_position = traversal_position->get_next();
+  if (head == NULL)//If lane is empty when inserting.
+	{
+		head = c;
+		tail = c;
+		c->set_prev(NULL);
+		c->set_next(NULL);
+	}
+  else{
+    if(c->get_position() < head->get_position()){
+      prepend(c);
     }
-    traversal_position->get_prev()->set_next(c);
-    traversal_position->get_next()->set_prev(c);
-    c->set_prev(traversal_position);
-    c->set_next(traversal_position->get_next());
+    else if(c->get_position() > tail->get_position()){
+      append(c);
+    }
+    else if(head != NULL){
+      Car* traversal_position = head;
+      while(traversal_position->get_position() < c->get_position()){
+        traversal_position = traversal_position->get_next();
+      }
+      c->set_next(traversal_position);
+			c->set_prev(traversal_position->get_prev());
+			traversal_position->get_prev()->set_next(c);
+			traversal_position->set_prev(c);
+    }
   }
 }
