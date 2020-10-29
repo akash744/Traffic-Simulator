@@ -52,6 +52,7 @@ int TrafficModel::get_lane_change_command(int id)
 void TrafficModel::update()
 {
   int lane_count = platoons.size();
+  vector<Car*> errors_vector;
 
   for(unsigned int i = 0; i < lane_count; i++){
 
@@ -64,16 +65,20 @@ void TrafficModel::update()
 		}
 
     while(cars != NULL){
-      if(this->get_lane_change_command(cars->get_id()) == 0){
-        this->move_car_forward(cars);               // Moves Car Forward
-      }
-      else if(this->get_lane_change_command(cars->get_id()) == 1){
-        this->change_lane_left(cars, i);            // Moves Car Left
-      }
-      else if(this->get_lane_change_command(cars->get_id()) == 2){
-        this->change_lane_right(cars, i);           // Moves Car Right
-      }
 
+      if(this->prevent_right_update_twice(cars, errors_vector) == 0){
+        if(this->get_lane_change_command(cars->get_id()) == 0){
+          this->move_car_forward(cars);               // Moves Car Forward
+        }
+        else if(this->get_lane_change_command(cars->get_id()) == 1){
+          this->change_lane_left(cars, i);            // Moves Car Left
+        }
+        else if(this->get_lane_change_command(cars->get_id()) == 2){
+          this->change_lane_right(cars, i);           // Moves Car Right
+          errors_vector.push_back(cars);
+        }
+      }
+      
       cars = copy_car;
 			if (copy_car != NULL)
 			{
@@ -167,6 +172,20 @@ void TrafficModel::change_lane_right(Car* c, int current_lane){
     this->move_car_forward(c);
   }
 }
+
+//Helper Function: To prevent right lane change twice returns 1 if true, 0 if false
+int TrafficModel::prevent_right_update_twice(Car* c, vector<Car*> errors_vector)
+{
+	for (int i = 0; i < errors_vector.size(); i++)
+	{
+		if (c == errors_vector[i])
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
+
 
 /*
  * Initialization based on the input information

@@ -35,6 +35,7 @@ class TrafficModel
     int check_free_space(Car* c, int current_position, int lane);
     void change_lane_left(Car* c, int current_lane);
     void change_lane_right(Car* c, int current_lane);
+    int prevent_right_update_twice(Car* c, vector<Car*> errors_vector);
     //MY HELPER FUNCTIONS END
 
 		vector<string> get_system_state();
