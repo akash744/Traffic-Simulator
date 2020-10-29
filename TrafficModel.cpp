@@ -51,7 +51,6 @@ int TrafficModel::get_lane_change_command(int id)
  */
 void TrafficModel::update()
 {
-	// TODO: complete this function
   int lane_count = platoons.size();
 
   for(unsigned int i = 0; i < lane_count; i++){
@@ -59,20 +58,22 @@ void TrafficModel::update()
     Car* cars = platoons[i].get_tail();
     Car* copy_car = NULL;
 
-    if (copy_car != NULL)
+    if (cars != NULL)
 		{
 			copy_car = cars->get_prev();
 		}
+
     while(cars != NULL){
       if(this->get_lane_change_command(cars->get_id()) == 0){
-        this->move_car_forward(cars);
+        this->move_car_forward(cars);               // Moves Car Forward
       }
       else if(this->get_lane_change_command(cars->get_id()) == 1){
-        this->change_lane_left(cars, i);
+        this->change_lane_left(cars, i);            // Moves Car Left
       }
       else if(this->get_lane_change_command(cars->get_id()) == 2){
-        this->change_lane_right(cars, i);
+        this->change_lane_right(cars, i);           // Moves Car Right
       }
+
       cars = copy_car;
 			if (copy_car != NULL)
 			{
@@ -98,21 +99,7 @@ void TrafficModel::move_car_forward(Car* c){
 
 //Helper Function: Check free space returns 0 if true, 1 if false
 int TrafficModel::check_free_space(Car* c, int current_position, int lane){
-  /*
-  int traversal_position = 0;
-  Car* temp_head_node = platoons[lane].get_head();
-
-  while(temp_head_node != NULL){
-
-    traversal_position = temp_head_node->get_position();
-    if(traversal_position == current_position){
-      return 0;
-    }
-    
-    temp_head_node = temp_head_node->get_next();
-  }
-  return 1;
-  */
+  
   int traversal_position = 0;
   Car* temp_head_node = platoons[lane].get_head();
 

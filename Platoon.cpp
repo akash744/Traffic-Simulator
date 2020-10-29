@@ -48,6 +48,7 @@ Car* Platoon::get_head()
 	return head;
 }
 
+// Inserts to Front of Linked List
 void Platoon::prepend(Car *c)
 {
   if(head == NULL){
@@ -61,6 +62,7 @@ void Platoon::prepend(Car *c)
   }
 }
 
+// Inserts to End of Linked List
 void Platoon::append(Car *c)
 {
   if(head == NULL){
@@ -74,6 +76,7 @@ void Platoon::append(Car *c)
   }
 }
 
+// Removes to First Node of Linked List
 void Platoon::remove_first(Car *c)
 {
   if(head->get_next() == NULL){
@@ -88,6 +91,7 @@ void Platoon::remove_first(Car *c)
   }
 }
 
+// Removes to Last Node of Linked List
 void Platoon::remove_last(Car *c)
 {
   if(head->get_next() == NULL){
@@ -102,26 +106,9 @@ void Platoon::remove_last(Car *c)
   }
 }
 
+//Removes Car whether it be at front, end or middle of Linked List
 void Platoon::remove(Car *c)
 {
-  /*
-  Car* head_reference = this->get_head();
-  Car* tail_reference = this->get_tail();
-
-  if(head_reference == c){
-    c->get_next()->set_prev(NULL);
-    head = c->get_next();
-  }
-  else if((c->get_next() != NULL) && (c->get_prev() != NULL)){
-    (c->get_prev())->set_next(c->get_next());
-    (c->get_next())->set_prev(c->get_prev());
-  }
-  else if(tail_reference == c){
-    (c->get_prev())->set_next(NULL);
-		tail = c->get_prev();
-		c->set_prev(NULL);
-  }
-  */
   if(c->get_prev() == NULL){
     remove_first(c);
   }
@@ -139,50 +126,18 @@ void Platoon::remove(Car *c)
   }
 }
 
+//Inserts Car whether it be at front, end or middle of Linked List
 void Platoon::insert(Car *c)
 {
-  /*
-  int current_position = c->get_position();
-
-  if(head != NULL){
-
-    if(current_position > tail->get_position()){
-      append(c);
-    }
-    else if(current_position < head->get_position()){
-      prepend(c);
-    }
-    else{
-      Car* temporary_head = this->get_head();
-
-      while(temporary_head->get_next() != NULL){
-        if(current_position < temporary_head->get_position()){
-          c->set_prev(temporary_head->get_prev());
-          c->set_next(temporary_head);
-          (temporary_head->get_prev())->set_next(c);
-					temporary_head->set_prev(c);
-					break;
-        }
-        temporary_head = temporary_head->get_next();
-      }
-    }
-  }
-
-  else{
-
-    head = c;
-    tail = c;
-
-  }
-  */
-  if (head == NULL)//If lane is empty when inserting.
+  
+  if (head == NULL)  //If lane is empty when inserting.
 	{
 		head = c;
 		tail = c;
 		c->set_prev(NULL);
 		c->set_next(NULL);
 	}
-  else{
+  else{             //If lane is not empty when inserting.
     if(c->get_position() < head->get_position()){
       prepend(c);
     }
@@ -190,14 +145,18 @@ void Platoon::insert(Car *c)
       append(c);
     }
     else if(head != NULL){
+
       Car* traversal_position = head;
+
       while(traversal_position->get_position() < c->get_position()){
         traversal_position = traversal_position->get_next();
       }
+
       c->set_next(traversal_position);
 			c->set_prev(traversal_position->get_prev());
 			traversal_position->get_prev()->set_next(c);
 			traversal_position->set_prev(c);
+      
     }
   }
 }
