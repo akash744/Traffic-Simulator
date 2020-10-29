@@ -87,14 +87,17 @@ void TrafficModel::update()
 void TrafficModel::move_car_forward(Car* c){
 
   Car* space_in_front = c->get_next();
+  int curr_position = c->get_position();
 
   if(space_in_front == NULL){
-
-    int curr_position = c->get_position();
     curr_position += 1;
     c->set_position(curr_position);
-
   }
+  else if (space_in_front->get_position() - c->get_position() != 1) 
+	{
+		curr_position += 1;
+    c->set_position(curr_position);
+	}
 }
 
 //Helper Function: Check free space returns 0 if true, 1 if false
