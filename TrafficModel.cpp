@@ -2,7 +2,19 @@
 #include<iostream>
 
 TrafficModel::TrafficModel() { }
-TrafficModel::~TrafficModel(){ }
+TrafficModel::~TrafficModel(){ 
+  for (int i = 0; i < platoons.size(); i++)
+	{
+		Car* c = platoons[i].get_tail();
+		while (c != NULL)
+		{
+			Car* traversal = c->get_prev();
+			delete c;
+			c = traversal;
+		}
+	}
+
+}
 
 void TrafficModel::set_commands(vector<string> commands)
 {
